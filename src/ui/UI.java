@@ -4,11 +4,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UI {
-    static public int getIntFromUser(Scanner scanner) {
+    static public int getIntFromUser(Scanner scanner, int maxNumber) {
         String input = scanner.nextLine();
 
         try {
-            return Integer.parseInt(input);
+            int inputNumber = Integer.parseInt(input);
+
+            if (inputNumber < 0 || inputNumber > maxNumber) {
+                throw new NumberFormatException("Invalid Number");
+            }
+
+            return inputNumber;
         } catch (NumberFormatException e) {
             IO.println("Invalid input, try again.");
             return -1;
@@ -20,9 +26,10 @@ public class UI {
         IO.println("[0] Exit");
         IO.println("[1] Add task");
         IO.println("[2] View tasks");
+        IO.println("[3] Delete task");
 
         IO.print("Enter choice: ");
-        return getIntFromUser(scanner);
+        return getIntFromUser(scanner, 3);
     }
 
     static public void addTask(ArrayList<String> tasks, Scanner scanner) {
@@ -33,5 +40,29 @@ public class UI {
     static public void getTasks(ArrayList<String> tasks) {
         IO.println("Tasks:");
         for (String task : tasks) IO.println("- " + task);
+    }
+
+    static public void deleteTask(ArrayList<String> tasks, Scanner scanner) {
+        IO.println("Tasks:");
+
+        for (int i = 0; i < tasks.size(); i++) {
+            String item = tasks.get(i);
+            IO.println("[" + i + "]: " + item);
+        }
+
+        IO.println("\nEnter deletion choice:");
+
+        boolean exit = false;
+
+        while (!exit) {
+            int removeIndex = getIntFromUser(scanner, tasks.size() - 1);
+
+            if (removeIndex > -1 && removeIndex < tasks.size()) {
+                tasks.remove(removeIndex);
+                exit = true;
+            } else {
+                IO.println("Invalid input, try again.");
+            }
+        }
     }
 }

@@ -21,6 +21,9 @@ void main() {
             case 2:
                 getTasks(tasks);
                 break;
+            case 3:
+                deleteTask(tasks, scanner);
+                break;
             default:
                 IO.println("Unknown option, try again.");
         }
