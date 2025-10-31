@@ -3,6 +3,9 @@ import static ui.UI.*;
 void main() {
     Scanner scanner = new Scanner(System.in);
     ArrayList<String> tasks = new ArrayList<>();
+    tasks.add("Task 1");
+    tasks.add("Task 2");
+    tasks.add("Task 3");
     boolean exit = false;
 
     while (!exit) {

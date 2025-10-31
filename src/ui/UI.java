@@ -28,7 +28,7 @@ public class UI {
         IO.println("[2] View tasks");
         IO.println("[3] Delete task");
 
-        IO.print("Enter choice: ");
+        IO.print("\nEnter choice: ");
         return getIntFromUser(scanner, 3);
     }
 
@@ -38,24 +38,24 @@ public class UI {
     }
 
     static public void getTasks(ArrayList<String> tasks) {
-        IO.println("Tasks:");
+        IO.println("\nTasks:");
         for (String task : tasks) IO.println("- " + task);
     }
 
     static public void deleteTask(ArrayList<String> tasks, Scanner scanner) {
-        IO.println("Tasks:");
+        IO.println("\nTasks:");
 
         for (int i = 0; i < tasks.size(); i++) {
             String item = tasks.get(i);
-            IO.println("[" + i + "]: " + item);
+            IO.println("[" + (i + 1) + "]: " + item);
         }
 
-        IO.println("\nEnter deletion choice:");
+        IO.println("\nEnter number of task to delete:");
 
         boolean exit = false;
 
         while (!exit) {
-            int removeIndex = getIntFromUser(scanner, tasks.size() - 1);
+            int removeIndex = getIntFromUser(scanner, tasks.size()) - 1;
 
             if (removeIndex > -1 && removeIndex < tasks.size()) {
                 tasks.remove(removeIndex);
