@@ -29,7 +29,7 @@ public class UI {
         IO.println("[3] Delete task");
 
         IO.print("\nEnter choice: ");
-        return getIntFromUser(scanner, 3);
+        return getIntFromUser(scanner, 4);
     }
 
     static public void addTask(ArrayList<String> tasks, Scanner scanner) {

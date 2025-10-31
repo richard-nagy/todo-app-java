@@ -1,11 +1,10 @@
+import static storage.TaskFileManager.loadTasksFromFile;
 import static ui.UI.*;
 
 void main() {
     Scanner scanner = new Scanner(System.in);
     ArrayList<String> tasks = new ArrayList<>();
-    tasks.add("Task 1");
-    tasks.add("Task 2");
-    tasks.add("Task 3");
+    loadTasksFromFile("tasks.txt", tasks);
     boolean exit = false;
 
     while (!exit) {
@@ -25,7 +24,6 @@ void main() {
                 getTasks(tasks);
                 break;
             case 3:
-                deleteTask(tasks, scanner);
                 break;
             default:
                 IO.println("Unknown option, try again.");
