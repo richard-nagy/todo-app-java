@@ -1,4 +1,5 @@
 import static storage.TaskFileManager.loadTasksFromFile;
+import static storage.TaskFileManager.writeFile;
 import static ui.UI.*;
 
 void main() {
@@ -9,14 +10,15 @@ void main() {
 
     while (!exit) {
         int choice = displayMenu(scanner);
-        if (choice == 0) exit = true;
-
-        else if (choice == -1) {
+        if (choice == -1) {
             IO.println("Unknown option, try again.");
             continue;
         }
 
         switch (choice) {
+            case 0:
+                exit = true;
+                break;
             case 1:
                 addTask(tasks, scanner);
                 break;
@@ -24,11 +26,13 @@ void main() {
                 getTasks(tasks);
                 break;
             case 3:
+                deleteTask(tasks, scanner);
                 break;
             default:
                 IO.println("Unknown option, try again.");
         }
     }
 
+    writeFile("tasks.txt", tasks);
     IO.println("Goodbye!");
 }

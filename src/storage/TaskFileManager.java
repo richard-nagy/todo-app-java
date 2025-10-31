@@ -2,10 +2,16 @@ package storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskFileManager {
+    static private Boolean emptyCheck(String text) {
+        return !text.isEmpty() && !text.matches("^\\s*$");
+    }
+
     static public ArrayList<String> readFile(String fileName) {
         File file = new File(fileName);
         ArrayList<String> lines = new ArrayList<>();
@@ -22,11 +28,23 @@ public class TaskFileManager {
         return lines;
     }
 
+    static public void writeFile(String fileName, ArrayList<String> list) {
+        try (FileWriter writer = new FileWriter(fileName)) {
+            for (String item : list) {
+                if (emptyCheck(item)) {
+                    writer.write(item + System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            IO.println("An error occurred: " + e);
+        }
+    }
+
     static public void loadTasksFromFile(String fileName, ArrayList<String> list) {
         ArrayList<String> lines = readFile(fileName);
 
         for (String line : lines) {
-            if (!line.isEmpty() && !line.matches("^\\s*$")) {
+            if (emptyCheck(line)) {
                 list.add(line);
             }
         }
