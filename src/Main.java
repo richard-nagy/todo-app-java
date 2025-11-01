@@ -8,7 +8,10 @@ void main() {
     Scanner scanner = new Scanner(System.in);
     ArrayList<Task> tasks = new ArrayList<>();
     loadTasksFromFile("tasks.txt", tasks);
+    ArrayList<Task> filteredTasks = tasks;
     boolean exit = false;
+
+    IO.println("\nFound tasks:");
 
     while (!exit) {
         int choice = displayMenu(scanner);
@@ -22,16 +25,20 @@ void main() {
                 exit = true;
                 break;
             case 1:
-                addTask(tasks, scanner);
+                addTask(filteredTasks, scanner);
                 break;
             case 2:
-                getTasks(tasks);
+                printTasks(filteredTasks);
                 break;
             case 3:
-                deleteTask(tasks, scanner);
+                deleteTask(filteredTasks, scanner);
                 break;
             case 4:
-                toggleTask(tasks, scanner);
+                toggleTask(filteredTasks, scanner);
+                break;
+            case 5:
+                String filterText = searchTasks(scanner);
+                filteredTasks = tasks.stream().filter(t -> (t.getDescription()).contains(filterText)).collect(Collectors.toCollection(ArrayList::new));
                 break;
             default:
                 IO.println("Unknown option, try again.");

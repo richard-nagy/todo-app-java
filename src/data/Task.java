@@ -20,4 +20,8 @@ public class Task {
     public String getString() {
         return "[" + (isDone ? "x" : " ") + "] " + description;
     }
+
+    public String getDescription() {
+        return description;
+    }
 }

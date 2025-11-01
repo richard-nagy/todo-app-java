@@ -24,15 +24,21 @@ public class UI {
     }
 
     static public int displayMenu(Scanner scanner) {
+        ArrayList<String> options = new ArrayList<>();
+        options.add("(0) Exit");
+        options.add("(1) Add task");
+        options.add("(2) View tasks");
+        options.add("(3) Delete task");
+        options.add("(4) Toggle task");
+        options.add("(5) Search tasks");
+
         IO.println("\nMenu:");
-        IO.println("(0) Exit");
-        IO.println("(1) Add task");
-        IO.println("(2) View tasks");
-        IO.println("(3) Delete task");
-        IO.println("(4) Toggle task");
+        for (String option : options) {
+            IO.println(option);
+        }
 
         IO.print("\nEnter choice: ");
-        return getIntFromUser(scanner, 4);
+        return getIntFromUser(scanner, options.size());
     }
 
     static public void addTask(ArrayList<Task> tasks, Scanner scanner) {
@@ -40,7 +46,7 @@ public class UI {
         tasks.add(new Task(scanner.nextLine()));
     }
 
-    static public void getTasks(ArrayList<Task> tasks) {
+    static public void printTasks(ArrayList<Task> tasks) {
         IO.println("\nTasks:");
 
         for (int i = 0; i < tasks.size(); i++) {
@@ -50,7 +56,7 @@ public class UI {
     }
 
     static public void deleteTask(ArrayList<Task> tasks, Scanner scanner) {
-        getTasks(tasks);
+        printTasks(tasks);
 
         IO.println("\nEnter number of task to delete:");
 
@@ -69,7 +75,7 @@ public class UI {
     }
 
     static public void toggleTask(ArrayList<Task> tasks, Scanner scanner) {
-        getTasks(tasks);
+        printTasks(tasks);
 
         IO.println("\nEnter number of task to toggle:");
 
@@ -85,5 +91,11 @@ public class UI {
                 IO.println("Invalid input, try again.");
             }
         }
+    }
+
+    static public String searchTasks(Scanner scanner) {
+        IO.println("\nEnter text to search for:");
+
+        return scanner.nextLine().toLowerCase();
     }
 }
