@@ -1,5 +1,7 @@
 package storage;
 
+import data.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -40,12 +42,17 @@ public class TaskFileManager {
         }
     }
 
-    static public void loadTasksFromFile(String fileName, ArrayList<String> list) {
+    static public void loadTasksFromFile(String fileName, ArrayList<Task> tasks) {
         ArrayList<String> lines = readFile(fileName);
 
         for (String line : lines) {
             if (emptyCheck(line)) {
-                list.add(line);
+                if (line.startsWith("[x]")) {
+                    tasks.add(new Task(line, true));
+                    return;
+                }
+
+                tasks.add(new Task(line));
             }
         }
     }
