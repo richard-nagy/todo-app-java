@@ -31,6 +31,7 @@ public class UI {
         options.add("(3) Delete task");
         options.add("(4) Toggle task");
         options.add("(5) Search tasks");
+        options.add("(6) Filter tasks");
 
         IO.println("\nMenu:");
         for (String option : options) {
@@ -93,9 +94,9 @@ public class UI {
         }
     }
 
-    static public String searchTasks(Scanner scanner) {
-        IO.println("\nEnter text to search for:");
-
-        return scanner.nextLine().toLowerCase();
+    static public void searchTasks(ArrayList<Task> tasks, Scanner scanner) {
+        String filterText = scanner.nextLine();
+        IO.println("\nFound tasks:");
+        tasks.stream().filter(t -> t.getDescription().toLowerCase().contains(filterText)).forEach(t -> IO.println(t.getString()));
     }
 }
