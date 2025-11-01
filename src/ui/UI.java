@@ -4,6 +4,7 @@ import data.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 public class UI {
     static public int getIntFromUser(Scanner scanner, int maxNumber) {
@@ -94,9 +95,38 @@ public class UI {
         }
     }
 
+    static public void printFilteredTasks(ArrayList<Task> tasks, Predicate<Task> filter) {
+        tasks.stream().filter(filter).forEach(t -> IO.println(t.getString()));
+    }
+
     static public void searchTasks(ArrayList<Task> tasks, Scanner scanner) {
         String filterText = scanner.nextLine();
         IO.println("\nFound tasks:");
-        tasks.stream().filter(t -> t.getDescription().toLowerCase().contains(filterText)).forEach(t -> IO.println(t.getString()));
+        printFilteredTasks(tasks, t -> t.getDescription().toLowerCase().contains(filterText));
+    }
+
+    static public void filterTasks(ArrayList<Task> tasks, Scanner scanner) {
+        boolean exit = false;
+
+        IO.println("Options:");
+        IO.println("(1) Done");
+        IO.println("(2) Undone");
+        IO.println("\nPick filter option:");
+
+        while (!exit) {
+            int optionFromUser = getIntFromUser(scanner, 2);
+
+            if (optionFromUser == 1) {
+                printFilteredTasks(tasks, t -> t.getIsDone() == true);
+                exit = true;
+                continue;
+            } else if (optionFromUser == 2) {
+                printFilteredTasks(tasks, t -> t.getIsDone() == false);
+                exit = true;
+                continue;
+            }
+
+            IO.println("Invalid input, try again.");
+        }
     }
 }

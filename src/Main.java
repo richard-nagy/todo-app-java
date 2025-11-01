@@ -39,6 +39,7 @@ void main() {
                 searchTasks(tasks, scanner);
                 break;
             case 6:
+                filterTasks(tasks, scanner);
                 break;
             default:
                 IO.println("Unknown option, try again.");
