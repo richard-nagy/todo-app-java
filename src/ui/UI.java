@@ -3,6 +3,7 @@ package ui;
 import data.Task;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
@@ -33,6 +34,7 @@ public class UI {
         options.add("(4) Toggle task");
         options.add("(5) Search tasks");
         options.add("(6) Filter tasks");
+        options.add("(7) Sort tasks");
 
         IO.println("\nMenu:");
         for (String option : options) {
@@ -122,6 +124,36 @@ public class UI {
                 continue;
             } else if (optionFromUser == 2) {
                 printFilteredTasks(tasks, t -> t.getIsDone() == false);
+                exit = true;
+                continue;
+            }
+
+            IO.println("Invalid input, try again.");
+        }
+    }
+
+    static public void sortTasks(ArrayList<Task> tasks, Scanner scanner) {
+        boolean exit = false;
+
+        IO.println("Options:");
+        IO.println("(1) Ascending order");
+        IO.println("(2) Descending order");
+        IO.println("\nPick sorting option:");
+
+        while (!exit) {
+            int optionFromUser = getIntFromUser(scanner, 2);
+
+            if (optionFromUser == 1) {
+                tasks.stream()
+                        .sorted()
+                        .forEach(t -> IO.println(t.getString()));
+                exit = true;
+                continue;
+            } else if (optionFromUser == 2) {
+                tasks.stream()
+                        .sorted(Comparator.comparing(Task::getString).reversed())
+                        .forEach(t -> IO.println(t.getString()));
+                
                 exit = true;
                 continue;
             }

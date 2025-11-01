@@ -41,6 +41,9 @@ void main() {
             case 6:
                 filterTasks(tasks, scanner);
                 break;
+            case 7:
+                sortTasks(tasks, scanner);
+                break;
             default:
                 IO.println("Unknown option, try again.");
         }
